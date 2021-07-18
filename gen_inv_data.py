@@ -34,6 +34,12 @@ headers = ['PER1', 'PER2', 'PER3', 'PER4', 'PER5','PER6',\
 
 df = pd.DataFrame(randn(1000,12), gen_prod_num(), headers).round(decimals=1) * 10 + 10
 df.index.name = 'ITEM'
+df['Vendor'] = df.index.astype(str).str.slice(stop=3)
+df['Total Use'] = df.sum(axis=1)
+df['Unit Cost'] = gen_unit_cost()
+df['Avg Sell'] = df['Unit Cost']*round(random.uniform(1,2),2) # Generate a random average sell price for each item
+df['Lead Time'] = gen_lead_time()
+df['Item Category'] = gen_item_cat()
 
 today = date.today()
 file_date = today.strftime("%b-%d-%Y")

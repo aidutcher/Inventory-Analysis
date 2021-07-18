@@ -80,7 +80,7 @@ df = pd.DataFrame(usage_numbers, items, headers).round(decimals=1)
 df.index.name = 'ITEM'
 
 df['Vendor'] = df.index.astype(str).str.slice(stop=3)
-df['12mo Use'] = df.sum(axis=1)
+df['Total Use'] = df.sum(axis=1)
 df['Unit Cost'] = gen_unit_cost()
 df['Avg Sell'] = df['Unit Cost']*round(random.uniform(1,2),2) # Generate a random average sell price for each item
 df['Lead Time'] = gen_lead_time()
