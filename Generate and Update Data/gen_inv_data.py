@@ -1,19 +1,8 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sun Jul 18 12:34:47 2021
-
-@author: aidut
-"""
-
 import pandas as pd
 import numpy as np
 from numpy.random import randn
 import random, string
 from datetime import date
-
-dc1_df = pd.read_csv(r"C:/Users/aidut/Documents/Inventory/inv_data-Jul-17-2021.csv")
-
-items = dc1_df['ITEM']
 
 # Change the number in range() to set the number of rows
 row_count = range(1000)
@@ -75,8 +64,7 @@ np.random.seed(101)
 headers = ['PER1', 'PER2', 'PER3', 'PER4', 'PER5','PER6',\
                'PER7','PER8','PER9','PER10','PER11','PER12']
 
-usage_numbers = np.random.randint(0,50,size=(1000,12)) + np.random.randint(-50,50,size=(1000,12))   
-df = pd.DataFrame(usage_numbers, items, headers).round(decimals=1) 
+df = pd.DataFrame(randn(1000,12), gen_prod_num(), headers).round(decimals=1) * 10 + 10
 df.index.name = 'ITEM'
 
 df['Vendor'] = df.index.astype(str).str.slice(stop=3)
@@ -90,6 +78,7 @@ df['Item Category'] = gen_item_cat()
 today = date.today()
 file_date = today.strftime("%b-%d-%Y")
 
-file_path = r'C:\Users\aidut\Documents\Inventory\dc2_inv_data-' + file_date + '.csv'
+file_path = r'C:\Users\aidut\Documents\Inventory\inv_data-' + file_date + '.csv'
 
 df.to_csv(file_path)
+
