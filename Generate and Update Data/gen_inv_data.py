@@ -41,6 +41,14 @@ def gen_unit_cost():
         cost_list.append(cost)
     return cost_list
 
+# Generate a sell price based on unit cost and a random markup
+def gen_sell_price():
+    sell_list = []
+    for cost in df['Unit Cost']:
+        sell = cost * round(random.uniform(1,2),2)
+        sell_list.append(sell)
+    return sell_list
+
 # Assign a random product category to each item
 def gen_item_cat():
     prod_cat = ['Disposables','Utensils','China','Glassware','Plastics','Textiles','Equipment']
@@ -70,7 +78,7 @@ df.index.name = 'ITEM'
 df['Vendor'] = df.index.astype(str).str.slice(stop=3)
 df['12mo Use'] = df.sum(axis=1)
 df['Unit Cost'] = gen_unit_cost()
-df['Avg Sell'] = df['Unit Cost']*round(random.uniform(1,2),2) # Generate a random average sell price for each item
+df['Avg Sell'] = gen_sell_price() 
 df['Lead Time'] = gen_lead_time()
 df['Item Category'] = gen_item_cat()
 
